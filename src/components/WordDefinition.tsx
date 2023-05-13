@@ -66,7 +66,7 @@ export function WordDefinition(props: WordDefinitionProps) {
             {meaning.antonyms.length > 0 && (
               <div className="mt-8 flex gap-6">
                 <div className="text-[#757575]">Antonyms</div>
-                <div className="text-[#A445ED]">
+                <div className="text-[#A445ED] flex flex-wrap gap-2">
                   {meaning.antonyms.map((antonym, index) => (
                     <Link href={`/${antonym}`} key={index}>
                       {antonym}
