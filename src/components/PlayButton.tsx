@@ -17,14 +17,14 @@ export default function PlayButton(props: PlayButtonProps) {
   return (
     <button onClick={handleClick}>
       <Image
-        className="block md:hidden"
+        className="md:hidden"
         src="./icon-play.svg"
         alt="play-button"
         width={48}
         height={48}
       />
       <Image
-        className="block"
+        className="hidden md:block"
         src="./icon-play.svg"
         alt="play-button"
         width={75}

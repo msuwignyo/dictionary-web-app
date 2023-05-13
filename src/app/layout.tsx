@@ -18,7 +18,7 @@ export default function RootLayout(props: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="p-6 md:p-10">
+        <div className="p-6 md:p-10 lg:max-w-3xl lg:mx-auto">
           <div className="flex flex-col gap-6">
             <div>
               <Image
