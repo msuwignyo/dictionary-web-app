@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inconsolata, Inter, Lora } from "next/font/google";
 import Image from "next/image";
 import { SearchBar } from "@/components/SearchBar";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 const lora = Lora({ subsets: ["latin"] });
@@ -24,6 +25,7 @@ export default function RootLayout(props: RootLayoutProps) {
             </div>
             <SearchBar />
             <div>{children}</div>
+            <Analytics />
           </div>
         </div>
       </body>
