@@ -7,9 +7,13 @@ const inter = Inter({ subsets: ["latin"] });
 const lora = Lora({ subsets: ["latin"] });
 const inconsolata = Inconsolata({ subsets: ["latin"] });
 
-// @ts-ignore
-export default function RootLayout(props) {
-  console.log(props);
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function RootLayout(props: RootLayoutProps) {
+  const { children } = props;
+
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -19,7 +23,7 @@ export default function RootLayout(props) {
               <Image src="/logo.svg" width={28} height={32} alt="test" />
             </div>
             <SearchBar />
-            <div>{props.children}</div>
+            <div>{children}</div>
           </div>
         </div>
       </body>

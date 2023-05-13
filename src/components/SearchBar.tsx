@@ -6,16 +6,20 @@ import { useDebounce } from "@/utils";
 import { useParams, useRouter } from "next/navigation";
 
 export function SearchBar() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const params = useParams();
+  const [searchTerm, setSearchTerm] = useState(params.word);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const router = useRouter();
-  const params = useParams();
 
   useEffect(() => {
     if (debouncedSearchTerm) {
       router.push(`/${debouncedSearchTerm}`);
     }
   }, [debouncedSearchTerm]);
+
+  useEffect(() => {
+    setSearchTerm(params.word);
+  }, [params.word]);
 
   const handleChangeSearch: FormEventHandler<HTMLInputElement> = (e) => {
     setSearchTerm(e.currentTarget.value);
@@ -28,7 +32,7 @@ export function SearchBar() {
         type="text"
         name="search"
         id="search"
-        defaultValue={params.word}
+        value={searchTerm}
         placeholder="Search for a word..."
         onChange={handleChangeSearch}
       />
