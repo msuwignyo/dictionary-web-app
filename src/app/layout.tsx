@@ -18,16 +18,29 @@ export default function RootLayout(props: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="p-6">
+        <div className="p-6 md:p-10">
           <div className="flex flex-col gap-6">
             <div>
-              <Image src="/logo.svg" width={28} height={32} alt="test" />
+              <Image
+                className="md:hidden"
+                src="/logo.svg"
+                width={28}
+                height={32}
+                alt="test"
+              />
+              <Image
+                className="hidden md:block"
+                src="/logo.svg"
+                width={32}
+                height={36}
+                alt="test"
+              />
             </div>
             <SearchBar />
             <div>{children}</div>
-            <Analytics />
           </div>
         </div>
+        <Analytics />
       </body>
     </html>
   );
