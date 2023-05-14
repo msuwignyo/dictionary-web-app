@@ -13,10 +13,10 @@ export function WordDefinition(props: WordDefinitionProps) {
   const { root } = props;
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 dark:text-white">
       <div className="flex justify-between items-center">
         <div className="flex flex-col gap-2">
-          <div className="text-[#2D2D2D] font-bold text-4xl md:text-6xl">
+          <div className="text-[#2D2D2D] font-bold text-4xl md:text-6xl dark:text-white">
             {root.word}
           </div>
           <div className="text-[#A445ED] text-lg md:text-2xl">

@@ -26,9 +26,9 @@ export function SearchBar() {
   };
 
   return (
-    <div className="flex bg-[#F4F4F4] rounded-2xl py-4 px-6">
+    <div className="flex bg-[#F4F4F4] rounded-2xl py-4 px-6 dark:bg-[#1F1F1F]">
       <input
-        className="flex-1 bg-transparent font-bold outline-0 md:text-xl"
+        className="flex-1 bg-transparent font-bold outline-0 md:text-xl dark:text-white"
         type="text"
         name="search"
         id="search"
