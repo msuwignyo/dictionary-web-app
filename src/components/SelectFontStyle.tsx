@@ -9,26 +9,33 @@ import {
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
 import React from "react";
-import { ThemeState, useTheme, useThemeDispatch } from "@/stores/ThemeContext";
+import {
+  inconsolata,
+  inter,
+  lora,
+  ThemeState,
+  useTheme,
+  useThemeDispatch,
+} from "@/stores/ThemeContext";
 
 const SelectFontStyle = () => {
   const options = [
-    { label: "Sans Serif", value: "inter" },
-    { label: "Serif", value: "lora" },
-    { label: "Mono", value: "mono" },
+    { label: "Sans Serif", value: "inter", className: inter.className },
+    { label: "Serif", value: "lora", className: lora.className },
+    { label: "Mono", value: "mono", className: inconsolata.className },
   ];
 
   const theme = useTheme();
   const themeDispatch = useThemeDispatch();
 
   function handleValueChange(value: string) {
-    themeDispatch({ type: "change", payload: value as ThemeState["style"] });
+    themeDispatch({ type: "CHANGE", payload: value as ThemeState["style"] });
   }
 
   return (
     <Select.Root onValueChange={handleValueChange} defaultValue={theme.style}>
       <Select.Trigger
-        className="inline-flex items-center justify-center rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-violet11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-violet9 outline-none"
+        className="inline-flex items-center justify-center rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-violet11 hover:bg-mauve3 data-[placeholder]:text-violet9 outline-none"
         aria-label="Food"
       >
         <Select.Value placeholder="Select font style..." />
@@ -37,14 +44,18 @@ const SelectFontStyle = () => {
         </Select.Icon>
       </Select.Trigger>
       <Select.Portal>
-        <Select.Content className="overflow-hidden bg-white rounded-md shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]">
+        <Select.Content className="overflow-hidden bg-white rounded-md shadow-[0px_5px_30px_0px_rgba(0,0,0,0.1)]">
           <Select.ScrollUpButton className="flex items-center justify-center h-[25px] bg-white text-violet11 cursor-default">
             <ChevronUpIcon />
           </Select.ScrollUpButton>
           <Select.Viewport className="p-[5px]">
             {options &&
               options.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
+                <SelectItem
+                  key={option.value}
+                  value={option.value}
+                  className={option.className}
+                >
                   {option.label}
                 </SelectItem>
               ))}
@@ -63,7 +74,7 @@ const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
     return (
       <Select.Item
         className={classnames(
-          "text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1",
+          "text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 hover:text-[#A445ED]",
           className
         )}
         {...props}

@@ -2,13 +2,14 @@
 
 import React, { createContext, Dispatch, useContext, useReducer } from "react";
 import { Inconsolata, Inter, Lora } from "next/font/google";
+import classnames from "classnames";
 
 const ThemeContext = createContext<ThemeState | null>(null);
 const ThemeDispatchContext = createContext<Dispatch<ThemeAction> | null>(null);
 
-const inter = Inter({ subsets: ["latin"], display: "swap" });
-const lora = Lora({ subsets: ["latin"], display: "swap" });
-const inconsolata = Inconsolata({ subsets: ["latin"], display: "swap" });
+export const inter = Inter({ subsets: ["latin"], display: "swap" });
+export const lora = Lora({ subsets: ["latin"], display: "swap" });
+export const inconsolata = Inconsolata({ subsets: ["latin"], display: "swap" });
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -26,10 +27,14 @@ export function ThemeProvider(props: ThemeProviderProps) {
       ? lora
       : inconsolata;
 
+  const darkStyle = state.darkMode ? "dark" : "light";
+
   return (
     <ThemeContext.Provider value={state}>
       <ThemeDispatchContext.Provider value={dispatch}>
-        <body className={font.className}>{children}</body>
+        <html lang="en" className={classnames(font.className, darkStyle)}>
+          {children}
+        </html>
       </ThemeDispatchContext.Provider>
     </ThemeContext.Provider>
   );
@@ -55,29 +60,42 @@ export function useThemeDispatch() {
   return context;
 }
 
-type ThemeAction = {
-  type: "change";
-  payload: "inter" | "lora" | "inconsolata";
-};
+type ThemeAction =
+  | {
+      type: "CHANGE";
+      payload: "inter" | "lora" | "inconsolata";
+    }
+  | {
+      type: "TOGGLE_DARK_MODE";
+      payload: boolean;
+    };
 
 function themeReducer(state: ThemeState, action: ThemeAction) {
   switch (action.type) {
-    case "change": {
+    case "CHANGE": {
       return {
         ...state,
         style: action.payload,
       };
     }
+    case "TOGGLE_DARK_MODE": {
+      return {
+        ...state,
+        darkMode: action.payload,
+      };
+    }
     default: {
-      throw Error("Unknown action: " + action.type);
+      throw Error(`Invalid action: ${JSON.stringify(action)}`);
     }
   }
 }
 
 export interface ThemeState {
   style: "inter" | "lora" | "inconsolata";
+  darkMode: boolean;
 }
 
 const initialState: ThemeState = {
   style: "inter",
+  darkMode: false,
 };
